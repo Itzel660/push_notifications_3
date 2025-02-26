@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1024842154413",
+    "project_id": "notificaciones-push-equipo3",
+    "storage_bucket": "notificaciones-push-equipo3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024842154413:android:25595135881359922c2124",
+        "android_client_info": {
+          "package_name": "com.example.notificaciones_push"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANe1NEc3yzMtxLmF7fBTED_g9CoI4E7bo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
