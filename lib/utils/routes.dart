@@ -18,6 +18,8 @@ class _RoutesState extends State<Routes> {
       return Center(child: CircularProgressIndicator());
     }
     if (snapshot.hasData) {
+      print('snapshot');
+      print(snapshot.data);
       return Home();
     }
     return Login();

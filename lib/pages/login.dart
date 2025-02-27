@@ -16,14 +16,39 @@ class _LoginState extends State<Login> {
 
   final UserAuthService _authService = UserAuthService();
 
-  login() {
+  _login() async {
     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+      _alertDialog('Por favor, rellena todos los campos');
       return;
     }
+    try {
+      await _authService.signInWithEmailAndPassword(
+        emailController.text,
+        passwordController.text,
+      );
+      Navigator.pushNamed(context, '/home');
+    } catch (e) {
+      _alertDialog('Usuario o contraseña incorrectos');
+    }
+  }
 
-    _authService.signInWithEmailAndPassword(
-      emailController.text,
-      passwordController.text,
+  _alertDialog(String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Center(child: const Text('Error')),
+          content: Text(errorMessage),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cerrar'),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -67,7 +92,7 @@ class _LoginState extends State<Login> {
               padding: const EdgeInsets.all(10.0),
               child: ElevatedButton(
                 onPressed: () {
-                  login();
+                  _login();
                 },
                 child: const Text('Login'),
               ),

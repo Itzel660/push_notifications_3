@@ -20,7 +20,7 @@ class UserAuthService {
       return user;
     } catch (e) {
       print(e.toString());
-      return null;
+      rethrow;
     }
   }
 
@@ -33,7 +33,7 @@ class UserAuthService {
       return user;
     } catch (e) {
       print(e.toString());
-      return null;
+      rethrow;
     }
   }
 

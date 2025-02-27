@@ -11,20 +11,48 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   final UserAuthService _authService = UserAuthService();
 
   register() async {
     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+      _alertDialog('Por favor, rellena todos los campos');
       return;
     }
+    if (passwordController.text != confirmPasswordController.text) {
+      _alertDialog('Las contraseñas no coinciden');
+      return;
+    }
+    try {
+      await _authService.registerWithEmailAndPassword(
+        emailController.text,
+        passwordController.text,
+      );
+      Navigator.pushNamed(context, '/home');
+    } catch (e) {
+      _alertDialog('Error al registrar el usuario');
+    }
+  }
 
-    await _authService.registerWithEmailAndPassword(
-      emailController.text,
-      passwordController.text,
+  _alertDialog(String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Center(child: const Text('Error')),
+          content: Text(errorMessage),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cerrar'),
+            ),
+          ],
+        );
+      },
     );
-    //navigato to home
-    Navigator.pushNamed(context, '/home');
   }
 
   @override
@@ -62,7 +90,7 @@ class _RegisterState extends State<Register> {
                   SizedBox(
                     width: 300,
                     child: TextField(
-                      controller: passwordController,
+                      controller: confirmPasswordController,
                       decoration: InputDecoration(
                         labelText: 'Confirmar password',
                       ),
