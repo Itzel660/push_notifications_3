@@ -1,30 +1,30 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:notificaciones_push/services/auth_service.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Register extends StatefulWidget {
+  const Register({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _LoginState extends State<Login> {
+class _RegisterState extends State<Register> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   final UserAuthService _authService = UserAuthService();
 
-  login() {
+  register() async {
     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
       return;
     }
 
-    _authService.signInWithEmailAndPassword(
+    await _authService.registerWithEmailAndPassword(
       emailController.text,
       passwordController.text,
     );
+    //navigato to home
+    Navigator.pushNamed(context, '/home');
   }
 
   @override
@@ -36,7 +36,7 @@ class _LoginState extends State<Login> {
           children: [
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Text('Iniciar sesión', style: TextStyle(fontSize: 24)),
+              child: Text('Registrar', style: TextStyle(fontSize: 24)),
             ),
 
             // user and password fields
@@ -59,6 +59,16 @@ class _LoginState extends State<Login> {
                       obscureText: true,
                     ),
                   ),
+                  SizedBox(
+                    width: 300,
+                    child: TextField(
+                      controller: passwordController,
+                      decoration: InputDecoration(
+                        labelText: 'Confirmar password',
+                      ),
+                      obscureText: true,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -67,23 +77,9 @@ class _LoginState extends State<Login> {
               padding: const EdgeInsets.all(10.0),
               child: ElevatedButton(
                 onPressed: () {
-                  login();
+                  register();
                 },
-                child: const Text('Login'),
-              ),
-            ),
-            // register button
-            Padding(
-              padding: const EdgeInsets.only(top: 50.0),
-              child: Text('¿No tienes cuenta?'),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/register');
-                },
-                child: const Text('Registrate'),
+                child: const Text('Registrar'),
               ),
             ),
           ],

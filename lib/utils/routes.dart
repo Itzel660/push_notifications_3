@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notificaciones_push/pages/login.dart';
 import 'package:notificaciones_push/pages/home.dart';
+import 'package:notificaciones_push/pages/register.dart';
 import 'package:notificaciones_push/services/auth_service.dart';
 
 class Routes extends StatefulWidget {
@@ -28,6 +29,7 @@ class _RoutesState extends State<Routes> {
       theme: ThemeData(primarySwatch: Colors.blue),
       routes: {
         '/login': (context) => const Login(),
+        '/register': (context) => const Register(),
         '/home': (context) => Home(),
       },
       home: StreamBuilder<User?>(
